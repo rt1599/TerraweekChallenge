@@ -1,0 +1,89 @@
+- What is Terraform and how can it help you manage infrastructure as code?
+
+Ans-Terraform is used to maintained the state and it is used for Infrastructure hardening.It provides different providers so that we can use them and configure the infrastructure.It lets you define resources and infrastructure in human-readable,declarative configuration fileand manages your infra lifecycle.
+
+Through HCL language it can help to manage infrastructure as code.Before terraform we need to create instances,bucket,VPC manually which lead to increase human errors and after automation  just on one click Infrastructure will be ready without creating any error.
+There are many problems faced before terraform:-
+1. Slow deployment
+2. Expensive
+3. Limited Automation
+4. Wasted Resource.
+
+- Why do we need Terraform and how does it simplify infrastructure provisioning?
+
+Ans- Terraform is used as infrastructure as a code to provision as well as maintaining the state.
+It simplify the below points after using terraform:-
+1. Slow deployment
+2. Expensive
+3. Limited Automation
+4. Wasted Resource.
+5. Human Errors
+
+- How can you install Terraform and set up the environment for AWS?
+
+Ans- 
+1. First install chocolatey on windows OS
+2. choco install terraform
+
+Environment set up for AWS
+provider "aws"{
+    region="ap-south-1"
+    access_key=""
+    secret_key="" 
+}
+resource "aws_instance" "EC2_instance"{
+    ami=""
+    instance_type="t2.micro"
+    availability_zone="us-east-2a"
+    key_name = var.ssh-key
+    vpc_security_group=[""]
+    tags={
+        Name="Dove-instance"
+    }
+}
+
+- Explain the important terminologies of Terraform with the example at least (5 crucial terminologies).
+
+Ans-
+1. Resource Block- Resource block is used to mention the type of block.It expects two labels , which are Resource Type and reference variable which needs to be assign.From below example "aws_instance" is resource type and "ec2_instance" is reference variable.
+Example:
+resource "aws_instance" "ec2_instance"{
+    instance_type="t2.micro"
+    availability_zone="us-east-2a"
+}
+2. Terraform Block-This blocks helps to know which providers need to be used.
+Example:
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "5.4.0"
+    }
+  }
+
+  3. provider-A probider is a plugin that terraform used to create and manage your resources.
+  Example:
+
+  provider "aws" {
+  region = var.aws_region
+
+}
+
+4. Terraform Variables-We can create variables.tf file to store all the variables.
+
+Example:
+
+variable "content"{
+    default="This is coming from variable which was updated"
+}
+
+5. Remote backend
+
+When working with Terraform in a team the use of local file make terraform usage complicated because each user must make sure they always have the latest state data before running terraform and make sure that nobody else runs terraform at the same time.
+With a remote state ,terraform writes the state data to a remote data store, which can then be shared between all members of a team.
+
+Example:
+terraform {
+    backend "remote"{}
+}
